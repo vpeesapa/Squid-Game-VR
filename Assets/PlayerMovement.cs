@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if(isGrounded && velocity.y < 0){
             velocity.y = -2f;
@@ -36,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
         Controller.Move(move * speed * Time.deltaTime);
 
         if(Input.GetKeyDown(KeyCode.Space)){
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            velocity.y = Mathf.Sqrt(jumpHeight * -4f * gravity);
         }
 
         velocity.y += gravity * Time.deltaTime;
