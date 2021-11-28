@@ -43,4 +43,13 @@ public class PlayerMovement : MonoBehaviour
 
         Controller.Move(velocity * Time.deltaTime);
     }
+
+    void OnTriggerEnter(Collider other) {
+        if(other.gameObject.tag == "DeathPlane") {
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #endif
+            Application.Quit();
+        }
+    }
 }
