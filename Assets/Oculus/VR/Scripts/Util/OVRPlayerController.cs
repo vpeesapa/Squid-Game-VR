@@ -159,6 +159,19 @@ public class OVRPlayerController : MonoBehaviour
 	private bool ReadyToSnapTurn; // Set to true when a snap turn has occurred, code requires one frame of centered thumbstick to enable another snap turn.
 	private bool playerControllerEnabled = false;
 
+	public float speed = 8f;
+	public float gravity = -9.81f;
+	public float jumpHeight = 3f;
+
+	Vector3 velocity;
+	Vector3 move;
+
+	public Transform groundCheck;
+	public float groundDistance = 0.4f;
+	public LayerMask groundMask;
+
+	bool isGrounded;
+
 	void Start()
 	{
 		// Add eye-depth as a camera offset from the player controller
@@ -223,12 +236,29 @@ public class OVRPlayerController : MonoBehaviour
 			else
 				return;
 		}
+
+		isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+		if (isGrounded && velocity.y < 0)
+		{
+			velocity.y = -2f;
+		}
+
+		velocity.y += gravity * Time.deltaTime;
+
+		Controller.Move(velocity * Time.deltaTime);
+
 		//Use keys to ratchet rotation
 		if (Input.GetKeyDown(KeyCode.Q))
 			buttonRotation -= RotationRatchet;
 
 		if (Input.GetKeyDown(KeyCode.E))
 			buttonRotation += RotationRatchet;
+
+		if(OVRInput.GetDown(OVRInput.Button.One))
+        {
+			Jump();
+        }
 	}
 
 	protected virtual void UpdateController()
@@ -315,10 +345,6 @@ public class OVRPlayerController : MonoBehaviour
 		if (predictedXZ != actualXZ)
 			MoveThrottle += (actualXZ - predictedXZ) / (SimulationRate * Time.deltaTime);
 	}
-
-
-
-
 
 	public virtual void UpdateMovement()
 	{
@@ -526,7 +552,7 @@ public class OVRPlayerController : MonoBehaviour
 		if (!Controller.isGrounded)
 			return false;
 
-		MoveThrottle += new Vector3(0, transform.lossyScale.y * JumpForce, 0);
+		velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
 
 		return true;
 	}

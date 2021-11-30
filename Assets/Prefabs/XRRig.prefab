@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Device: 0
   m_PoseSource: 2
   m_PoseProviderComponent: {fileID: 0}
-  m_TrackingType: 0
+  m_TrackingType: 1
   m_UpdateType: 0
   m_UseRelativeTransform: 0
 --- !u!1 &8090092966945017340
@@ -398,7 +398,7 @@ MonoBehaviour:
   Controller: {fileID: 378107294}
   Camera: {fileID: 8090092966860521938}
   speed: 7
-  gravity: -9.81
+  gravity: -15
   jumpHeight: 6
   groundCheck: {fileID: 175825643}
   groundDistance: 0.4

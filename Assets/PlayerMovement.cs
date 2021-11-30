@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.XR;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -48,7 +50,8 @@ public class PlayerMovement : MonoBehaviour
 
         Controller.Move(move * speed * Time.deltaTime);
 
-        if (isGrounded && OVRInput.Get(OVRInput.Button.One))
+        if (isGrounded && OVRInput.GetDown(OVRInput.Button.One))
+        //if(isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
@@ -65,32 +68,36 @@ public class PlayerMovement : MonoBehaviour
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #endif
-            Application.Quit();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        if(other.gameObject.tag == "EndPlatform") {
+        if (other.gameObject.tag == "EndPlatform")
+        {
             StartCoroutine(DelayWin(2f));
         }
 
-        if(other.gameObject.tag == "BrokenGlass") {
+        if (other.gameObject.tag == "BrokenGlass")
+        {
             StartCoroutine(DestroyGlass(1.3f, other));
         }
     }
 
-    IEnumerator DestroyGlass(float time, Collider other){
+    IEnumerator DestroyGlass(float time, Collider other)
+    {
         yield return new WaitForSeconds(time);
-        
+
         // Code to execute after the delay
         Destroy(other.gameObject);
-     }
+    }
 
-    IEnumerator DelayWin(float time){
+    IEnumerator DelayWin(float time)
+    {
         yield return new WaitForSeconds(time);
-        
+
         // Code to execute after the delay
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        #endif
-        Application.Quit();
+#endif
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
