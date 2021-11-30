@@ -396,14 +396,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controller: {fileID: 378107294}
-  speed: 12
+  Camera: {fileID: 8090092966860521938}
+  speed: 7
   gravity: -9.81
-  jumpHeight: 3
+  jumpHeight: 6
   groundCheck: {fileID: 175825643}
   groundDistance: 0.4
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
 --- !u!1 &8090092967907005488
 GameObject:
   m_ObjectHideFlags: 0

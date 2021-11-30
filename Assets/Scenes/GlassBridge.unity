@@ -235,6 +235,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378107293, guid: cf3e4c789b8ff3b46be7772f4b537399, type: 3}
+      propertyPath: Camera
+      value: 
+      objectReference: {fileID: 1255071541}
+    - target: {fileID: 8090092966860521942, guid: cf3e4c789b8ff3b46be7772f4b537399, type: 3}
+      propertyPath: m_TrackingType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8090092967874972449, guid: cf3e4c789b8ff3b46be7772f4b537399, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -527,6 +535,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1255071541 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8090092966860521938, guid: cf3e4c789b8ff3b46be7772f4b537399, type: 3}
+  m_PrefabInstance: {fileID: 378107290}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1312012222
 GameObject:
   m_ObjectHideFlags: 0
@@ -720,6 +733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controller: {fileID: 1647722264}
+  Camera: {fileID: 0}
   speed: 12
   gravity: -9.81
   jumpHeight: 3

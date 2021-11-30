@@ -22,7 +22,10 @@ public class PlayerMovement : MonoBehaviour
 
     bool isGrounded;
 
-    InputDevice leftController;
+    private void Start()
+    {
+        
+    }
 
     // Update is called once per frame
     void Update()
@@ -41,9 +44,14 @@ public class PlayerMovement : MonoBehaviour
 
         Controller.Move(move * speed * Time.deltaTime);
 
-        if (isGrounded && OVRInput.Get(OVRInput.Button.One))
+        if (isGrounded && Input.GetButtonDown(CommonUsages.primaryButton.name))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+
+        if (device.TryGetFeatureValue(UnityEngine.XR.CommonUsages.triggerButton, out triggerValue) && triggerValue)
+        {
+            Debug.Log("Trigger button is pressed.");
         }
 
         velocity.y += gravity * Time.deltaTime;
