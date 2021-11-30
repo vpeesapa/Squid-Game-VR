@@ -21,6 +21,13 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask groundMask;
 
     bool isGrounded;
+    float startTime;
+    float jumpDelay = 5f;
+
+    void Start()
+    {
+        startTime = Time.time;
+    }
 
     InputDevice leftController;
 
@@ -60,5 +67,30 @@ public class PlayerMovement : MonoBehaviour
 #endif
             Application.Quit();
         }
+
+        if(other.gameObject.tag == "EndPlatform") {
+            StartCoroutine(DelayWin(2f));
+        }
+
+        if(other.gameObject.tag == "BrokenGlass") {
+            StartCoroutine(DestroyGlass(1.3f, other));
+        }
+    }
+
+    IEnumerator DestroyGlass(float time, Collider other){
+        yield return new WaitForSeconds(time);
+        
+        // Code to execute after the delay
+        Destroy(other.gameObject);
+     }
+
+    IEnumerator DelayWin(float time){
+        yield return new WaitForSeconds(time);
+        
+        // Code to execute after the delay
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+        Application.Quit();
     }
 }
